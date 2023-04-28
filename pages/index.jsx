@@ -37,6 +37,7 @@ const Home = () => {
 
 const KelolaImage = ({ loading, dir }) => {
     loading = false;
+    dir = 
     const handleDelete = async (e) => {
         e.preventDefault();
         const response = await axios.delete(`/api/drive/delete/${dir.fileId}`);
