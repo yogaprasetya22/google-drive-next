@@ -2,7 +2,6 @@ import { useState } from "react";
 import axios from "axios";
 import fs from "fs/promises";
 import path from "path";
-import Link from "next/link";
 import Image from "next/image";
 
 const Upload = ({ dirs }) => {
