@@ -1,43 +1,14 @@
 import Component from "@/lib/Component";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import React from "react";
 
 const Profil = () => {
-    const [nameFile, setNameFile] = useState("");
-    const [miniType, setMiniType] = useState("");
-    const [selectFile, setSelectFile] = useState(null);
-    const [fileInput, setFileInput] = useState(null);
-
-    const validateFile = (e) => {
-        setFileInput(URL.createObjectURL(e.target.files[0]));
-        const render = new FileReader();
-        render.onload = (e) => {
-            // console.log(e.target.result);
-            setSelectFile(e.target.result);
-        };
-        render.readAsDataURL(e.target.files[0]);
-        setNameFile(e.target.files[0].name);
-        setMiniType(e.target.files[0].type);
-    };
-
-    const formHandler = async (e) => {
-        e.preventDefault();
-
-        const formData = new FormData();
-        formData.append("file", fileInput);
-        formData.append("name", nameFile);
-        formData.append("miniType", miniType);
-
-        const res = await axios("/api/drive/upload", {
-            method: "POST",
-            body: formData,
-        })
-        
-    };
-
     return (
-        <Component title={"Dashboard"}>
-            
+        <Component title={"Profil"}>
+            <div className="flex items-center justify-center h-screen">
+                <div className="bg-white dark:bg-[#1f2937] rounded shadow-lg p-10">
+                    <h1 className="text-2xl font-bold mb-5">Profil</h1>
+                </div>
+            </div>
         </Component>
     );
 };
