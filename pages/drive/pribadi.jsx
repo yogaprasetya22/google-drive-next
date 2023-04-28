@@ -78,8 +78,11 @@ const Konss = () => {
         <div className="w-full flex justify-center items-center flex-wrap flex-row gap-5 ">
             {dataDrive.map((dir) => (
                 <div key={dir.fileId}>
-                    {dir.fileName.split(".")[1] == "mp4" && (
+                    {dir.fileName.split(".")[1] == "mp4" ||
+                    dir.fileName.split(".")[1] == "MP4" ? (
                         <KelolaImage dir={dir} loading={loading} />
+                    ) : (
+                        <></>
                     )}
                 </div>
             ))}
@@ -124,7 +127,7 @@ const KelolaImage = ({ loading, dir }) => {
                     className="card card-compact w-96 bg-cyan-800 backdrop-blur-sm shadow-md my-[2rem] z-10 glass"
                     key={dir.fileId}
                 >
-                    <Link href={dir.webViewLink}>
+                    <Link href={dir.webViewLink} target="_blank">
                         <figure>
                             <LazyLoadImage
                                 src={"../assets/Calendar.png"}
@@ -134,7 +137,7 @@ const KelolaImage = ({ loading, dir }) => {
                         </figure>
                     </Link>
                     <div className="card-body text-center">
-                        <Link href={dir.webViewLink}>
+                        <Link href={dir.webViewLink} target="_blank">
                             <span className="text-blue-200 font-semibold hover:underline ">
                                 {dir.fileName}
                             </span>
