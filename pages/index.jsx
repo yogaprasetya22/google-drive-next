@@ -26,7 +26,14 @@ const Home = () => {
                         dir.fileName.split(".")[1] == "jpeg" ? (
                             <KelolaImage dir={dir} loading={loading} />
                         ) : (
-                            <KelolaFile dir={dir} loading={loading} />
+                            <>
+                                {dir.fileName.split(".")[1] === "mp4" ||
+                                dir.fileName.split(".")[1] === "MP4" ? (
+                                    <></>
+                                ) : (
+                                    <KelolaFile dir={dir} loading={loading} />
+                                )}
+                            </>
                         )}
                     </div>
                 ))}
@@ -35,9 +42,11 @@ const Home = () => {
     );
 };
 
+// dir.fileName.split(".")[1] == "mp4" ||
+//         (dir.fileName.split(".")[1] == "MP4")
+
 const KelolaImage = ({ loading, dir }) => {
     loading = false;
-    dir = 
     const handleDelete = async (e) => {
         e.preventDefault();
         const response = await axios.delete(`/api/drive/delete/${dir.fileId}`);
@@ -87,7 +96,7 @@ const KelolaImage = ({ loading, dir }) => {
                                 {dir.fileName}
                             </span>
                         </Link>
-                        <div className="absolute right-0 top-0 pt-2 px-2">
+                        <div className="absolute right-0 px-2">
                             <div className="dropdown dropdown-bottom dropdown-end ">
                                 <label
                                     tabIndex={0}
@@ -97,7 +106,7 @@ const KelolaImage = ({ loading, dir }) => {
                                 </label>
                                 <ul
                                     tabIndex={0}
-                                    className="dropdown-content menu p-2 shadow rounded-box w-52 bg-cyan-200 text-gray-800 z-50 hover:bg-cyan-400"
+                                    className="dropdown-content menu p-2 shadow rounded-box w-52 bg-gray-200 text-gray-800 z-50 hover:bg-gray-400"
                                 >
                                     <li>
                                         <span onClick={(e) => handleDelete(e)}>
@@ -115,15 +124,6 @@ const KelolaImage = ({ loading, dir }) => {
 };
 
 const KelolaFile = ({ loading, dir }) => {
-    loading = false;
-    const handleDelete = async (e) => {
-        e.preventDefault();
-        const response = await axios.delete(`/api/drive/delete/${dir.fileId}`);
-        if (response.data.done == "sukses") {
-            console.log(response.data);
-            window.location.reload();
-        }
-    };
     return (
         <>
             {loading ? (
@@ -163,7 +163,7 @@ const KelolaFile = ({ loading, dir }) => {
                                 {dir.fileName}
                             </span>
                         </Link>
-                        <div className="absolute right-0 top-0 pt-2 px-2">
+                        <div className="absolute right-0 px-2">
                             <div className="dropdown dropdown-bottom dropdown-end ">
                                 <label
                                     tabIndex={0}
@@ -173,7 +173,7 @@ const KelolaFile = ({ loading, dir }) => {
                                 </label>
                                 <ul
                                     tabIndex={0}
-                                    className="dropdown-content menu p-2 shadow rounded-box w-52 bg-cyan-200 text-gray-800 z-50 hover:bg-cyan-400"
+                                    className="dropdown-content menu p-2 shadow rounded-box w-52 bg-gray-200 text-gray-800 z-50 hover:bg-gray-400"
                                 >
                                     <li>
                                         <span onClick={(e) => handleDelete(e)}>
