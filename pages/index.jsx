@@ -99,7 +99,7 @@ const Home = () => {
                                     <div className="card card-compact w-96 bg-cyan-800 shadow-md my-[2rem] glass backdrop-blur-sm">
                                         <figure>
                                             <LazyLoadImage
-                                                src={"./assets/icon-pdf.png"}
+                                                src={"./assets/Icon-pdf.png"}
                                                 alt={dir.fileName}
                                                 className="h-[15rem]"
                                             />
