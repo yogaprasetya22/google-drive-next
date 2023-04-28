@@ -3,6 +3,7 @@ import axios from "axios";
 import fs from "fs/promises";
 import path from "path";
 import Link from "next/link";
+import Image from "next/image";
 
 const Upload = ({ dirs }) => {
     const [uploading, setUploading] = useState(false);
@@ -41,14 +42,14 @@ const Upload = ({ dirs }) => {
                 <div className="w-[20rem] aspect-video rounded flex items-center justify-center border-2 border-dashed cursor-pointer">
                     {selectedImage ? (
                         selectedFile.type.split("/")[0] == "image" ? (
-                            <img src={selectedImage} alt="" />
+                            <Image width={30} height={30} src={selectedImage} alt="" />
                         ) : (
                             <span className=" text-center">
                                 {selectedFile.name}
                             </span>
                         )
                     ) : (
-                        <span>Select Image</span>
+                        <span>Select File</span>
                     )}
                 </div>
             </label>
