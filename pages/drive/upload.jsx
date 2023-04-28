@@ -16,6 +16,8 @@ const Upload = ({ dirs }) => {
             const formData = new FormData();
             formData.append("File", selectedFile);
             const { data } = await axios.post("/api/drive/upload", formData);
+            setSelectedImage("");
+            setSelectedFile(null);
             console.log(data);
         } catch (error) {
             console.log(error.message);
@@ -41,7 +43,12 @@ const Upload = ({ dirs }) => {
                 <div className="w-[20rem] aspect-video rounded flex items-center justify-center border-2 border-dashed cursor-pointer">
                     {selectedImage ? (
                         selectedFile.type.split("/")[0] == "image" ? (
-                            <Image width={30} height={30} src={selectedImage} alt="" />
+                            <Image
+                                width={30}
+                                height={30}
+                                src={selectedImage}
+                                alt=""
+                            />
                         ) : (
                             <span className=" text-center">
                                 {selectedFile.name}

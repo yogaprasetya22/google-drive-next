@@ -195,15 +195,15 @@ const SubSidebar = ({ open, path }) => {
                     href="/drive/upload"
                     icon={"Chat"}
                 >
-                    upload
+                    Upload
                 </LinkItem>
                 <LinkItem
                     path={path}
                     open={open}
-                    href="/drive/unit-kerja"
+                    href="/drive/pribadi"
                     icon={"Chat"}
                 >
-                    Unit Kerja
+                    Pribadi
                 </LinkItem>
 
                 <LinkItem

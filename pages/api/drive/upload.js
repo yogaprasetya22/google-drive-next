@@ -30,6 +30,9 @@ const readFile = (req, saveLocally) => {
 };
 
 const handler = async (req, res) => {
+    if (req.method !== "POST")
+        return res.status(405).json({ message: "Method not allowed" });
+
     try {
         await fsPomise.readdir(
             path.join(process.cwd() + "/public", "/uploads")
@@ -41,7 +44,7 @@ const handler = async (req, res) => {
 
     try {
         if (!resultFile.files) {
-            console.log({ message: "No file uploaded" });
+            res.json({ message: "No file uploaded" });
             return;
         }
 
@@ -50,13 +53,13 @@ const handler = async (req, res) => {
             "/uploads",
             resultFile.files.File[0].newFilename
         );
-        const res = await drive.files.get({
+        const respon = await drive.files.get({
             fileId: "1LS_NJazP1BXF2oOUCDdzsxqA2fQE2yC3",
         });
 
-        if (!res) console.log({ message: "Folder not found" });
+        if (!respon) res.json({ message: "Folder not found" });
 
-        const folderId = res.data.id;
+        const folderId = respon.data.id;
 
         const fileMetadata = {
             name: resultFile.files.File[0].originalFilename,
