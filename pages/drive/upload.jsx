@@ -44,8 +44,8 @@ const Upload = ({ dirs }) => {
                     {selectedImage ? (
                         selectedFile.type.split("/")[0] == "image" ? (
                             <Image
-                                width={30}
-                                height={30}
+                                width={300}
+                                height={300}
                                 src={selectedImage}
                                 alt=""
                             />

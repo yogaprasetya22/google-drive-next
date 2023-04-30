@@ -44,7 +44,7 @@ const handler = async (req, res) => {
 
     try {
         if (!resultFile.files) {
-            res.json({ message: "No file uploaded" });
+            console.log({ message: "No file uploaded" });
             return;
         }
 
@@ -57,7 +57,7 @@ const handler = async (req, res) => {
             fileId: "1LS_NJazP1BXF2oOUCDdzsxqA2fQE2yC3",
         });
 
-        if (!respon) res.json({ message: "Folder not found" });
+        if (!respon) console.log({ message: "Folder not found" });
 
         const folderId = respon.data.id;
 
@@ -84,7 +84,7 @@ const handler = async (req, res) => {
             error: error.message,
         });
     }
-    res.json({ done: "Sukses!" });
+    res.json({ done: "Sukses!", result: resultFile.files });
 };
 
 export default handler;
