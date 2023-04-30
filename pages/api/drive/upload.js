@@ -48,11 +48,6 @@ const handler = async (req, res) => {
             return;
         }
 
-        const filePath = path.join(
-            process.cwd() + "/public",
-            "/uploads",
-            resultFile.files.File[0].newFilename
-        );
         const respon = await drive.files.get({
             fileId: "1LS_NJazP1BXF2oOUCDdzsxqA2fQE2yC3",
         });
@@ -68,7 +63,7 @@ const handler = async (req, res) => {
 
         const media = {
             mimeType: resultFile.files.File[0].mimetype,
-            body: fs.createReadStream(filePath),
+            body: fs.createReadStream(resultFile.files.File[0].filepath),
         };
 
         const response = await drive.files.create({
@@ -77,14 +72,14 @@ const handler = async (req, res) => {
             fields: "id",
         });
         if (response) {
-            await fsPomise.unlink(filePath);
+            await fsPomise.unlink(resultFile.files.File[0].filepath);
         }
     } catch (error) {
         res.json({
             error: error.message,
         });
     }
-    res.json({ done: "Sukses!", result: resultFile.files });
+    res.json({ done: "Sukses!", result: resultFile.files.File[0].filepath });
 };
 
 export default handler;
