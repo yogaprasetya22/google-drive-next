@@ -19,11 +19,11 @@ const Upload = ({ dirs }) => {
             setSelectedImage("");
             setSelectedFile(null);
             console.log(data);
+            window.location.reload();
+            setUploading(false);
         } catch (error) {
             console.log(error.message);
         }
-        setUploading(false);
-        // window.location.reload();
     };
 
     return (
@@ -33,7 +33,7 @@ const Upload = ({ dirs }) => {
                     type="file"
                     hidden
                     onChange={({ target }) => {
-                        if (target.files) {
+                        if (target.files[0]) {
                             const file = target.files[0];
                             setSelectedImage(URL.createObjectURL(file));
                             setSelectedFile(file);

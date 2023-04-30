@@ -71,9 +71,9 @@ const handler = async (req, res) => {
             media: media,
             fields: "id",
         });
-        if (response) {
-            await fsPomise.unlink(resultFile.files.File[0].filepath);
-        }
+        // if (response) {
+        //     await fsPomise.unlink(resultFile.files.File[0].filepath);
+        // }
     } catch (error) {
         res.json({
             error: error.message,
