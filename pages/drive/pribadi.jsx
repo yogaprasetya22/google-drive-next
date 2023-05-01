@@ -91,7 +91,6 @@ const Konss = () => {
 };
 
 const KelolaImage = ({ loading, dir }) => {
-    loading = false;
     console.log(dir.webContentLink);
     const handleDelete = async (e) => {
         e.preventDefault();

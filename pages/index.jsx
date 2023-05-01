@@ -19,24 +19,29 @@ const Home = () => {
     return (
         <Component title={"Dashboard"}>
             <div className="w-full flex justify-center items-center flex-wrap flex-row gap-5 ">
-                {dataDrive.map((dir) => (
-                    <div key={dir.fileId}>
-                        {dir.fileName.split(".")[1] == "png" ||
-                        dir.fileName.split(".")[1] == "jpg" ||
-                        dir.fileName.split(".")[1] == "jpeg" ? (
-                            <KelolaImage dir={dir} loading={loading} />
-                        ) : (
-                            <>
-                                {dir.fileName.split(".")[1] === "mp4" ||
-                                dir.fileName.split(".")[1] === "MP4" ? (
-                                    <></>
-                                ) : (
-                                    <KelolaFile dir={dir} loading={loading} />
-                                )}
-                            </>
-                        )}
-                    </div>
-                ))}
+                {dataDrive.map((dir) => {
+                    return (
+                        <>
+                            {dir.fileName.split(".")[1] == "png" ||
+                            dir.fileName.split(".")[1] == "jpg" ||
+                            dir.fileName.split(".")[1] == "jpeg" ? (
+                                <KelolaImage dir={dir} loading={loading} />
+                            ) : (
+                                <>
+                                    {dir.fileName.split(".")[1] === "mp4" ||
+                                    dir.fileName.split(".")[1] === "MP4" ? (
+                                        <></>
+                                    ) : (
+                                        <KelolaFile
+                                            dir={dir}
+                                            loading={loading}
+                                        />
+                                    )}
+                                </>
+                            )}
+                        </>
+                    );
+                })}
             </div>
         </Component>
     );
@@ -61,7 +66,7 @@ const KelolaImage = ({ loading, dir }) => {
                 <div
                     key={dir.fileId}
                     role="status"
-                    className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center"
+                    className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center "
                 >
                     <div className="flex items-center justify-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
                         <svg
@@ -78,7 +83,7 @@ const KelolaImage = ({ loading, dir }) => {
                 </div>
             ) : (
                 <div
-                    className="card card-compact w-96 bg-cyan-800 backdrop-blur-sm shadow-md my-[2rem] z-10 glass"
+                    className="card card-compact w-96 bg-cyan-800 backdrop-blur-sm shadow-md my-[2rem] z-10 glass "
                     key={dir.fileId}
                 >
                     <Link href={dir.webViewLink}>
@@ -86,7 +91,7 @@ const KelolaImage = ({ loading, dir }) => {
                             <LazyLoadImage
                                 src={dir.webContentLink}
                                 alt={dir.fileName}
-                                className=" rounded-t-xl h-[15rem]"
+                                className=" rounded-t-xl h-[15rem] "
                             />
                         </figure>
                     </Link>
@@ -124,6 +129,14 @@ const KelolaImage = ({ loading, dir }) => {
 };
 
 const KelolaFile = ({ loading, dir }) => {
+    const handleDelete = async (e) => {
+        e.preventDefault();
+        const response = await axios.delete(`/api/drive/delete/${dir.fileId}`);
+        if (response.data.done == "sukses") {
+            console.log(response.data);
+            window.location.reload();
+        }
+    };
     return (
         <>
             {loading ? (
