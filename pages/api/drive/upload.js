@@ -3,6 +3,7 @@ import path from "path";
 import fsPomise from "fs/promises";
 import fs from "fs";
 import drive from "../config/connection";
+import httpProxyMiddleware from "next-http-proxy-middleware";
 
 export const config = {
     api: {
@@ -29,6 +30,9 @@ const readFile = (req, saveLocally) => {
 };
 
 const handler = async (req, res) => {
+    httpProxyMiddleware(req, res, {
+        target: "http://localhost:3000",
+    });
     if (req.method !== "POST")
         return res.status(405).json({ message: "Method not allowed" });
 
@@ -47,32 +51,32 @@ const handler = async (req, res) => {
             return;
         }
 
-        // const respon = await drive.files.get({
-        //     fileId: "1LS_NJazP1BXF2oOUCDdzsxqA2fQE2yC3",
-        // });
+        const respon = await drive.files.get({
+            fileId: "1LS_NJazP1BXF2oOUCDdzsxqA2fQE2yC3",
+        });
 
-        // if (!respon) console.log({ message: "Folder not found" });
+        if (!respon) console.log({ message: "Folder not found" });
 
-        // const folderId = respon.data.id;
+        const folderId = respon.data.id;
 
-        // const fileMetadata = {
-        //     name: resultFile.files.File[0].originalFilename,
-        //     parents: [folderId],
-        // };
+        const fileMetadata = {
+            name: resultFile.files.File[0].originalFilename,
+            parents: [folderId],
+        };
 
-        // const media = {
-        //     mimeType: resultFile.files.File[0].mimetype,
-        //     body: fs.createReadStream(resultFile.files.File[0].filepath),
-        // };
+        const media = {
+            mimeType: resultFile.files.File[0].mimetype,
+            body: fs.createReadStream(resultFile.files.File[0].filepath),
+        };
 
-        // const response = await drive.files.create({
-        //     resource: fileMetadata,
-        //     media: media,
-        //     fields: "id",
-        // });
-        // if (response) {
-        //     await fsPomise.unlink(resultFile.files.File[0].filepath);
-        // }
+        const response = await drive.files.create({
+            resource: fileMetadata,
+            media: media,
+            fields: "id",
+        });
+        if (response) {
+            await fsPomise.unlink(resultFile.files.File[0].filepath);
+        }
     } catch (error) {
         res.json({
             error: error.message,
